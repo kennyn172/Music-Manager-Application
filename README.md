@@ -1,10 +1,21 @@
 # My Personal Project
 
-## A subtitle
+## Music manager application
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
+What this application will *actually* do:
+- Create multiple playlists, each playlist composed of individual songs
+- Allow the user to shuffle the order of songs in the playlist, or change them manually
+- Store song information, such as artist, length, album pictures, etc.
+- Allows users to manually add songs, which can then be added to playlists. 
+- Specifically allow users to add multiple songs to a playlist at once.
+- Customizable playlist names and icons.
 
-An example of text with **bold** and *italic* fonts.  
+This project will be designed like an alternative to something like Spotify
+or iTunes, for people who want to listen to music. As someone
+who frequently uses Spotify, the fact that I can't add multiple
+songs to a playlist at once annoys me. **Therefore**, I will make sure
+that this project allows the user to do so. If I have time, I
+may also attempt to make the application actually be able tp 
+play songs using mp3 files, but I'm not sure about the feasibility of 
+this just yet.
+
