@@ -24,11 +24,10 @@ this just yet.
 ## User Stories
 
 - As a user, I want to be able to view a list of all songs in my library.
-- As a user, I want to be able to add individual or multiple songs to a playlist.
-- As a user, I want to create multiple playlists, and give them names and icons.
-- As a user, I want to change the order of songs in my playlists, either by shuffling or changing them manually.
-- As a user, I want to view song information, such as lyrics, length, etc. 
-- As a user, I want to be able to tell if a song is explicit without reading all the lyrics.
-- As a user, I want to be able to remove songs from playlists.
-- As a user, I want to view the total length of each playlist. 
+- As a user, I want to be able to add songs to my library.
+- As a user, I want to change the order of songs in my library, either by shuffling or changing them manually.
+- As a user, I want to view song information, such as name, length, etc. 
+- As a user, I want to be able to tell if a song is explicit.
+- As a user, I want to be able to remove songs.
+- As a user, I want to view the total length of all my songs.
 
