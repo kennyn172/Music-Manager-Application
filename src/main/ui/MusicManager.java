@@ -11,8 +11,6 @@ import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Scanner;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -32,11 +30,8 @@ public class MusicManager extends JFrame implements ListSelectionListener {
     private static final String JSON_STORE = "data/Library.json";
 
     private Library lib;
-    private Scanner input;
     private JsonReader jsonReader;
     private JsonWriter jsonWriter;
-
-    private Song john;
 
     private JList list;
     private DefaultListModel listSongs;
@@ -329,8 +324,6 @@ public class MusicManager extends JFrame implements ListSelectionListener {
     }
 
     private void createLibrary() {
-        input = new Scanner(System.in);
-        input.useDelimiter("\n");
         lib = new Library();
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
