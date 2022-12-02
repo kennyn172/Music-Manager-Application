@@ -33,3 +33,13 @@ this just yet.
 - As a user, I want to be able to save my list of songs to a file.
 - As a user, I want to be able to load songs from a file.
 
+
+## Instructions for Grader
+
+- For first event: fill in the information for a song in the four text fields (Song name, song length (integer), artist name, and "true" of the song is deemed explicit)
+
+- Then, click the Add Song button. This will add that song to the playlist.
+- For the second event: After adding a song, select any added song and click the Remove Song button. This will remove the selected song from the playlist.
+- Other possible events include viewing the information of a selected song or shuffling the songs
+- You can save the state of the application by clicking the Save Song Library to file button.
+- You can load the state of the application by clicking the Load Song Library from file button.

@@ -2,9 +2,12 @@ package ui;
 
 import model.Library;
 import model.Song;
-
+import javax.imageio.ImageIO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -72,6 +75,8 @@ public class MusicManager extends JFrame implements ListSelectionListener {
         list = new JList(listSongs);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setVisibleRowCount(10);
+
+        list.addListSelectionListener(this);
         JScrollPane listScrollPane = new JScrollPane(list);
         add(listScrollPane,BorderLayout.CENTER);
 
@@ -139,13 +144,26 @@ public class MusicManager extends JFrame implements ListSelectionListener {
         buttonPane.add(shuffleButton);
         buttonPane.add(loadButton);
         buttonPane.add(saveButton);
-
+        removeButton.setEnabled(false);
+        viewButton.setEnabled(false);
         add(buttonPane, BorderLayout.PAGE_END);
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
+        if (e.getValueIsAdjusting() == true) {
 
+            if (list.getSelectedIndex() == -1) {
+                removeButton.setEnabled(false);
+                viewButton.setEnabled(false);
+                shuffleButton.setEnabled(false);
+            } else {
+                //Selection, enable the fire button.
+                removeButton.setEnabled(true);
+                viewButton.setEnabled(true);
+                shuffleButton.setEnabled(true);
+            }
+        }
     }
 
     class AddListener implements ActionListener, DocumentListener {
@@ -174,7 +192,6 @@ public class MusicManager extends JFrame implements ListSelectionListener {
             listSongs.addElement(songName.getText());
             lib.addSong(name,Integer.parseInt(length),artist,Boolean.parseBoolean(explicit));
 
-
             songName.requestFocusInWindow();
             songName.setText("");
             songLength.setText("");
@@ -183,6 +200,8 @@ public class MusicManager extends JFrame implements ListSelectionListener {
 
             list.setSelectedIndex(index);
             list.ensureIndexIsVisible(index);
+            removeButton.setEnabled(true);
+            viewButton.setEnabled(true);
         }
 
         @Override
@@ -220,6 +239,7 @@ public class MusicManager extends JFrame implements ListSelectionListener {
 
     class RemoveListener implements ActionListener {
         private JButton button;
+        private boolean alreadyEnabled = false;
 
         public RemoveListener(JButton button) {
             this.button = button;
@@ -246,29 +266,31 @@ public class MusicManager extends JFrame implements ListSelectionListener {
     class ViewListener extends JFrame implements ActionListener {
         private JButton button;
 
+        private boolean alreadyEnabled = false;
+
         public ViewListener(JButton button) {
             this.button = button;
         }
 
         public void actionPerformed(ActionEvent e) {
             int index = list.getSelectedIndex();
+            int size = listSongs.getSize();
+            if (size == 0) {
+                viewButton.setEnabled(false);
+            }
             JLabel info = new JLabel("Song information:");
             JLabel name = new JLabel("Name: " + lib.getSongs().get(index).getName());
             JLabel length = new JLabel("Length: " + lib.getSongs().get(index).getLength() + " seconds");
             JLabel artist = new JLabel("Artist: " + lib.getSongs().get(index).getSingerName());
             JLabel explicit = new JLabel("Explicit? " + lib.getSongs().get(index).getIsExplicit().toString());
-
             JPanel panel = new JPanel();
-            panel.setBorder(BorderFactory.createEmptyBorder(30,30,10,10));
             panel.setLayout(new GridLayout(5,1));
             panel.add(info);
             panel.add(name);
             panel.add(length);
             panel.add(artist);
             panel.add(explicit);
-
             add(panel);
-            setLayout(new GridLayout(0, 1));
             setMinimumSize(new Dimension(400, 400));
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             setLocationRelativeTo(null);
@@ -276,6 +298,8 @@ public class MusicManager extends JFrame implements ListSelectionListener {
             setVisible(true);
         }
     }
+
+
 
     class ShuffleListener implements ActionListener {
         private JButton button;
@@ -308,7 +332,12 @@ public class MusicManager extends JFrame implements ListSelectionListener {
                 listSongs.addElement(lib.getSongs().get(i).getName());
             }
             list.setSelectedIndex(0);
+            if (listSongs.getSize() > 0) {
+                viewButton.setEnabled(true);
+                removeButton.setEnabled(true);
+            }
         }
+
     }
 
     class SaveListener implements ActionListener {
