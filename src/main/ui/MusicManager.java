@@ -1,15 +1,23 @@
 package ui;
 
 import model.Library;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 
 //Music Manager Application
 public class MusicManager {
 
+    private static final String JSON_STORE = "data/Library.json";
+
     private Library lib;
     private Scanner input;
+    private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
 
     //EFFECTS: runs the music manager application
     public MusicManager() {
@@ -63,12 +71,16 @@ public class MusicManager {
         System.out.println("3. View song info");
         System.out.println("4. Swap song order");
         System.out.println("5. Shuffle playlist");
+        System.out.println("6. Load Library from file");
+        System.out.println("7. Save Library to file");
     }
 
     private void createLibrary() {
         input = new Scanner(System.in);
         input.useDelimiter("\n");
         lib = new Library();
+        jsonReader = new JsonReader(JSON_STORE);
+        jsonWriter = new JsonWriter(JSON_STORE);
     }
 
 
@@ -84,6 +96,10 @@ public class MusicManager {
             swapSongOrder();
         } else if (command.equals("5")) {
             shufflePlaylist();
+        } else if (command.equals("6")) {
+            loadLibrary();
+        } else if (command.equals("7")) {
+            saveLibrary();
         } else {
             System.out.println("Selection not valid...");
         }
@@ -166,6 +182,26 @@ public class MusicManager {
         lib.shuffleSongs();
     }
 
+    ////Methods taken from JSONSerializationDemo at https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    private void loadLibrary() {
+        try {
+            lib = jsonReader.read();
+            System.out.println("Loaded Library from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
 
+    ////Methods taken from JSONSerializationDemo at https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    private void saveLibrary() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(lib);
+            jsonWriter.close();
+            System.out.println("Saved Library to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
 
 }

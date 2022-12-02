@@ -1,0 +1,16 @@
+{
+  "songs": [
+    {
+      "explicit?": true,
+      "singer": "John Canada",
+      "name": "O Canada",
+      "length": 2
+    },
+    {
+      "explicit?": false,
+      "singer": "John Birthday",
+      "name": "Happy Birthday",
+      "length": 2
+    }
+  ]
+}

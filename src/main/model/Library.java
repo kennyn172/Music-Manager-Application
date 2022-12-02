@@ -1,7 +1,12 @@
 package model;
 
+import org.json.JSONObject;
+import org.json.JSONArray;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 // Represents a list of all songs added by the user to the application.
 public class Library {
@@ -18,6 +23,10 @@ public class Library {
     //EFFECTS: A new song is added to the end of the playlist
     public void addSong(String name, int length, String singer, Boolean isExplicit) {
         this.songs.add(new Song(name,length,singer,isExplicit));
+    }
+
+    public void addJSong(Song song) {
+        this.songs.add(song);
     }
 
     //REQUIRES: songNumber >= 0 and songNumber < this.songs.size()
@@ -55,6 +64,20 @@ public class Library {
         return this.songs;
     }
 
+    //Method taken from JSONSerializationDemo at https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("songs", songsToJson());
+        return json;
+    }
 
+    //Method taken from JSONSerializationDemo at https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    private JSONArray songsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Song s : songs) {
+            jsonArray.put(s.toJson());
+        }
+        return jsonArray;
+    }
 
 }

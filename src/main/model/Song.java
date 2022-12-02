@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 // Represents a song that has a name, length, and the name of the singer.
 public class Song {
     private String name;            // Name of the song
@@ -33,6 +35,14 @@ public class Song {
         return isExplicit;
     }
 
-
+    //Method taken from JSONSerializationDemo at https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name",name);
+        json.put("length", length);
+        json.put("singer",singerName);
+        json.put("explicit?",isExplicit);
+        return json;
+    }
 
 }

@@ -30,4 +30,6 @@ this just yet.
 - As a user, I want to be able to tell if a song is explicit.
 - As a user, I want to be able to remove songs.
 - As a user, I want to view the total length of all my songs.
+- As a user, I want to be able to save my list of songs to a file.
+- As a user, I want to be able to load songs from a file.
 
