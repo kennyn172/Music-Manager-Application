@@ -1,13 +1,14 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Library;
 import model.Song;
-import javax.imageio.ImageIO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.nio.Buffer;
+
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -20,12 +21,13 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.text.View;
+
+
 import java.awt.*;
 
 
 //Music Manager Application
-public class MusicManager extends JFrame implements ListSelectionListener {
+public class MusicManager extends JFrame implements ListSelectionListener, WindowListener {
 
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 750;
@@ -59,12 +61,11 @@ public class MusicManager extends JFrame implements ListSelectionListener {
     public MusicManager() {
         super("Music Manager");
         createLibrary();
-
         setLayout(new GridLayout(2, 1));
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
-
+        addWindowListener(this);
         setVisible(true);
 
         listSongs = new DefaultListModel();
@@ -87,7 +88,6 @@ public class MusicManager extends JFrame implements ListSelectionListener {
 
     private void makeTextFields() {
         AddListener addListener = new AddListener(addButton);
-
         songName = new JTextField("Enter Song Name here", 8);
         songName.addActionListener(addListener);
         songName.getDocument().addDocumentListener(addListener);
@@ -164,6 +164,45 @@ public class MusicManager extends JFrame implements ListSelectionListener {
                 shuffleButton.setEnabled(true);
             }
         }
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    //prints EventLog
+    public void windowClosing(WindowEvent e) {
+        for (Event event : EventLog.getInstance()) {
+            System.out.println("\n" + event.toString());
+        }
+        System.exit(0);
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
     }
 
     class AddListener implements ActionListener, DocumentListener {

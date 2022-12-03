@@ -23,6 +23,8 @@ public class Library {
     //EFFECTS: A new song is added to the end of the playlist
     public void addSong(String name, int length, String singer, Boolean isExplicit) {
         this.songs.add(new Song(name,length,singer,isExplicit));
+        Event e = new Event("Song '" + name + "' added");
+        EventLog.getInstance().logEvent(e);
     }
 
     public void addJSong(Song song) {
@@ -33,7 +35,10 @@ public class Library {
     //MODIFIES: this
     //EFFECTS: A selected song is removed from the library
     public void removeSong(int songNumber) {
+        String name = songs.get(songNumber).getName();
         this.songs.remove(songNumber);
+        Event e = new Event("Song '" + name + "' removed");
+        EventLog.getInstance().logEvent(e);
     }
 
     //REQUIRES: songOne and songTwo >= 0, songOne != songTwo, songOne and songTwo < this.songs.size()
