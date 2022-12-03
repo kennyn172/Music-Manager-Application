@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 // Represents a list of all songs added by the user to the application.
-public class Library {
+public class Library implements Writable {
 
     private ArrayList<Song> songs;      //List of songs in library
 

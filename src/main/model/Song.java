@@ -1,9 +1,10 @@
 package model;
 
 import org.json.JSONObject;
+import persistence.Writable;
 
 // Represents a song that has a name, length, and the name of the singer.
-public class Song {
+public class Song implements Writable {
     private String name;            // Name of the song
     private int length;         // Length of the song in seconds
     private String singerName;      // Name of the singer

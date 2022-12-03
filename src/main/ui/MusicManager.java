@@ -67,7 +67,6 @@ public class MusicManager extends JFrame implements ListSelectionListener, Windo
         setLocationRelativeTo(null);
         addWindowListener(this);
         setVisible(true);
-
         listSongs = new DefaultListModel();
         ArrayList<Song> allSongs = lib.getSongs();
         for (int i = 0; i < lib.getSongs().size(); i++) {

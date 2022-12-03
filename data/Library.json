@@ -1,1 +1,6 @@
-{"songs": []}
+{"songs": [{
+    "explicit?": false,
+    "singer": "Enter artist name",
+    "name": "Enter Song Name here",
+    "length": 1313
+}]}
